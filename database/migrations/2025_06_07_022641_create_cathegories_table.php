@@ -10,7 +10,6 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    use HasUuids;
 
     public function up(): void
     {
