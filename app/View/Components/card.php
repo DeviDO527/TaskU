@@ -11,12 +11,11 @@ class card extends Component
     /**
      * Create a new component instance.
      */
-    public $title;
-    public $icon;
-    public function __construct($title=null,$icon=null)
+
+    public $items;
+    public function __construct($items = [])
     {
-        $this->title = $title;
-        $this->icon = $icon;
+        $this->items = $items;
     }
 
 

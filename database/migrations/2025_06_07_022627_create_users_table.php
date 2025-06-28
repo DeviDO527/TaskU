@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('role')->default('user'); // Default role is 'user'
+            $table->string('role')->default('user');
+            $table->timestamp('email_verified_at')->nullable(); // Default role is 'user'
             $table->timestampTz('created_at',0)->useCurrent(); // Creation date
             $table->timestampTz('updated_at',0)->useCurrent()->nullable(); // Update date
             $table->boolean('active')->default(true); // Default is active

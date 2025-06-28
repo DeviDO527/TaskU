@@ -1,8 +1,16 @@
 <div class ="card shadow">
 
-    <img src="{{$icon}}" alt="icon" style="width:50px;">
-    <h2>{{$title}}</h2>
-    <p class ="card-p">
-        {{$slot}}
-    </p>
+    @foreach($items as $item)
+        @if($item['icon'])
+            <img src="{{$item['icon']}}" alt="icon" style="width:50px;">
+        @endif
+        @if($item['title'])
+            <h2>{{$item['title']}}</h2>
+        @endif
+        @if($item['paragraph'])
+            <p class ="card-p">
+                {{$item['paragraph']}}
+            </p>
+        @endif
+    @endforeach
 </div>

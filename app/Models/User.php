@@ -2,16 +2,17 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory;
+    use Notifiable;
     use HasUuids;
     public $incrementing = false;
     protected $keyType = 'string';
@@ -22,14 +23,14 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'id',
         'name',
         'email',
         'password',
-        'role', // Default role is 'user'
+        'role',
+        'email_verified_at', // Default role is 'user'
         'created_at',
         'updated_at',
-        'Active',
+        'active',
     ];
 
     /**
@@ -49,14 +50,14 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'id' => 'uuid',
             'name' => 'string',
             'email' => 'string',
             'password' => 'hashed',
-            'role' => 'string', // Default role is 'user'
+            'role' => 'string',
+            'email_verified_at' => 'datetime',// Default role is 'user'
             'created_at' => 'datetime',
             'updated_at' => 'datetime',
-            'Active' => 'boolean',
+            'active' => 'boolean',
         ];
     }
 }

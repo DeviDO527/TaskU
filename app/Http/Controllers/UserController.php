@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Http\Requests\createUser;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth as FacadesAuth;
+use Illuminate\Support\Facades\Redirect;
 class userController extends Controller
 {
     /**
@@ -23,9 +27,36 @@ class userController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function createUser(createUser $request)
     {
-        //
+        try{
+            $validatedData = $request->safe()->except(['password_confirmation']);
+            $user = new User([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => bcrypt($validatedData['password']),
+                'role' => 'user', // Default role is 'user'
+                'email_verified_at' => null, // Not verified by default
+                'created_at' => now(),
+                'updated_at' => now(),
+                'active' => true, // Assuming Active is a boolean field
+            ]);
+
+            $user->save();
+            FacadesAuth::login($user); // Automatically log in the user after registration
+            // Simulating user creation success
+            event(new Registered($user)); // Trigger the Registered event
+            return Redirect::route('verification.notice')
+            ->with('success', 'User created successfully. Please verify your email.');
+        }catch(\Throwable $e){
+            // return Redirect::back()->withErrors(['error' => 'An error occurred while creating the user.']);
+            dd([
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
+        }
     }
 
     /**
