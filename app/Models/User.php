@@ -60,4 +60,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'active' => 'boolean',
         ];
     }
+
+    public function sendEmailVerificationNotification(){
+        $this->notify(new \App\Notifications\CustomVerifyEmail());
+    }
 }

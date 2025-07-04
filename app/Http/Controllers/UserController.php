@@ -31,7 +31,7 @@ class userController extends Controller
     {
         try{
             $validatedData = $request->safe()->except(['password_confirmation']);
-            $user = new User([
+            $user = User::create([
                 'name' => $validatedData['name'],
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
@@ -44,8 +44,8 @@ class userController extends Controller
 
             $user->save();
             FacadesAuth::login($user); // Automatically log in the user after registration
-            // Simulating user creation success
             event(new Registered($user)); // Trigger the Registered event
+            // Simulating user creation success
             return Redirect::route('verification.notice')
             ->with('success', 'User created successfully. Please verify your email.');
         }catch(\Throwable $e){
