@@ -6,15 +6,15 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class layout extends Component
+class TaskCard extends Component
 {
     /**
      * Create a new component instance.
      */
-     public $title;
-    public function __construct($title = null)
+    public $items;
+    public function __construct($items = [])
     {
-        $this->title = $title;
+        $this->items = $items;
     }
 
     /**
@@ -22,6 +22,6 @@ class layout extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.layout');
+        return view('components.task-card');
     }
 }

@@ -4,6 +4,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/welcome', [HomeController::class, 'welcome']);
@@ -30,3 +31,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
+Route::post('/login', [userController::class, 'login'])->middleware('auth')->name('login');
+Route::get('/dashboard', [TaskController::class, 'getTasks'])->middleware('auth')->name('dashboard');

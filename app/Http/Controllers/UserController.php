@@ -8,6 +8,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
+
 class userController extends Controller
 {
     /**
@@ -58,7 +60,39 @@ class userController extends Controller
             ]);
         }
     }
+    public function login(Request $request){
+        try{
+            $validatedData = $request->validate([
+                'email' => 'required|email',
+                'password' => 'required|string|min:6|max:255'
+            ]);
+            $user = User::where('email', $validatedData['email'])->first();
+            if (!$user) {
+                return Redirect::back()->withErrors(['error' => 'User not found.']);
+            }
+            else{
+                if (FacadesAuth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password'], 'active' => true])) {
+                    // Authentication passed...
+                    if ($user->email_verified_at) {
+                        return Redirect::route('dashboard')->with('success', 'Login successful.');
+                    } else {
+                        return Redirect::route('verification.notice')->with('warning', 'Please verify your email before logging in.');
+                    }
+                } else {
+                    return Redirect::back()->withErrors(['error' => 'Invalid credentials.']);
+                }
+            }
+        }catch(\Throwable $e){
+            // return Redirect::back()->withErrors(['error' => 'An error occurred while logging in.']);
+            dd([
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
+            ]);
 
+        }
+    }
     /**
      * Store a newly created resource in storage.
      */

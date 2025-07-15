@@ -37,5 +37,6 @@
         @endif
         <x-register-form></x-register-form>
     </div>
+    <x-footer></x-footer>
 </body>
 
