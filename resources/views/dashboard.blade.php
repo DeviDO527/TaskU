@@ -15,7 +15,7 @@
         [
             'message'=>'',
             'button'=>'Logout',
-            'link'=>'/login'
+            'link'=>'/logout'
         ]
     ]"
     ></x-nav-menu>

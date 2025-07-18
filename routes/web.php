@@ -8,8 +8,8 @@ use App\Http\Controllers\TaskController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/welcome', [HomeController::class, 'welcome']);
-Route::get('/login', [userController::class, 'showLogin']);
-Route::get('/signup', [userController::class, 'showRegister']);
+Route::get('/login', [userController::class, 'showLogin'])->middleware('guest')->name('login');
+Route::get('/signup', [userController::class, 'showRegister'])->middleware('guest');
 Route::post('/create', [userController::class, 'createUser']);
 Route::get('/test-email-verify', function(){
     return view('auth.verify-email');
@@ -32,5 +32,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::post('/login', [userController::class, 'login'])->middleware('auth')->name('login');
+Route::post('/loginUser', [userController::class, 'login'])->name('loginUser')->middleware('guest');
 Route::get('/dashboard', [TaskController::class, 'getTasks'])->middleware('auth')->name('dashboard');
+Route::post('/logout', [userController::class, 'logout'])->name('logout')->middleware('auth');

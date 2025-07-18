@@ -1,5 +1,5 @@
 <div class="login-content">
-    <form id="loginForm" method="POST" action="/login" class="loginFormContent shadow">
+    <form id="loginForm" method="POST" action="/loginUser" class="loginFormContent shadow">
         @csrf
         <div>
             <img src="{{asset('build/assets/TaskuBlack.png')}}" alt="TaskU Logo" class="watermark">

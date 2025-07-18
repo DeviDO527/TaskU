@@ -8,7 +8,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as FacadesAuth;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Redis;
 
 class userController extends Controller
 {
@@ -91,6 +90,24 @@ class userController extends Controller
                 'trace' => $e->getTraceAsString(),
             ]);
 
+        }
+    }
+    public function logout(Request $request)
+    {
+        try {
+            FacadesAuth::logout(); // Cierra la sesión actual del usuario.
+        
+            // Invalida la sesión y regenera el token CSRF para mayor seguridad.
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+        
+            return Redirect::route('login')->with('success', 'You have been logged out.');
+        } catch (\Throwable $e) {
+            dd([
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
         }
     }
     /**

@@ -1,6 +1,8 @@
 <form id="registerForm" method="POST" action ="/create" class="formContent shadow">
     @csrf
-    <h1>Register</h1>
+    <div>
+        <img src="{{asset('build/assets/TaskuBlack.png')}}" alt="TaskU Logo" class="watermark">
+    </div>
     <div class="form-box">
         Name:
         <input

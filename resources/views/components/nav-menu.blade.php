@@ -15,9 +15,18 @@
                 <h5 style="color:rgb(95, 95, 95);">{{$item['message']}}</h5>
             @endif
             @if($item['button']&&$item['link'])
-                <a class="link-Button" href={{$item['link']}}>
-                {{$item['button']}}
-                </a>
+                @if($item['button'] == 'Logout')
+                    <form method="POST" action="{{ $item['link'] }}" style="display:inline;">
+                        @csrf
+                        <button type="submit" class="link-Button">
+                            {{ $item['button'] }}
+                        </button>
+                    </form>
+                @else
+                    <a class="link-Button" href={{$item['link']}}>
+                    {{$item['button']}}
+                    </a>
+                @endif
             @endif
         @endforeach
     </div>
