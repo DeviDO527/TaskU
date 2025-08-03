@@ -1,4 +1,4 @@
-<form id="registerForm" method="POST" action ="/create" class="formContent shadow">
+<form id="registerForm" method="POST" action ="/create" class="formContent shadow" autofocus>
     @csrf
     <div>
         <img src="{{asset('build/assets/TaskuBlack.png')}}" alt="TaskU Logo" class="watermark">

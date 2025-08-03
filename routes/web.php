@@ -35,3 +35,8 @@ Route::post('/email/verification-notification', function (Request $request) {
 Route::post('/loginUser', [userController::class, 'login'])->name('loginUser')->middleware('guest');
 Route::get('/dashboard', [TaskController::class, 'getTasks'])->middleware('auth')->name('dashboard');
 Route::post('/logout', [userController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('/tasks', function(){
+    return view('createTask'); // Assuming you have a view for creating tasks
+})->middleware('auth');
+
+Route::post('/tasks/create', [TaskController::class, 'createTask'])->middleware('auth');

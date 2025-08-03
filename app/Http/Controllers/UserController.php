@@ -24,7 +24,10 @@ class userController extends Controller
     {
         //
     }
-
+    public function getUser(){
+        $users = User::all();
+        return view('users.index', compact('users')); // Assuming you have a view to display
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -96,11 +99,11 @@ class userController extends Controller
     {
         try {
             FacadesAuth::logout(); // Cierra la sesión actual del usuario.
-        
+
             // Invalida la sesión y regenera el token CSRF para mayor seguridad.
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-        
+
             return Redirect::route('login')->with('success', 'You have been logged out.');
         } catch (\Throwable $e) {
             dd([

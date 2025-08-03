@@ -2,12 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class category extends Model
 {
+    use HasUuids;
     public $incrementing = false;
-    protected $KeyTipe = 'string';
+    protected $KeyType = 'string';
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
+    }
     protected $fillable =[
         'name',
         'description',
@@ -23,6 +36,11 @@ class category extends Model
             'created_at' => 'datetime',
             'updated_at' => 'datetime'
         ];
-    }   
+    }
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'category_id', 'id');
+    }
 
 }

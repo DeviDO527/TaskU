@@ -1,3 +1,5 @@
 <div class="footer">
-     &copy; {{ date('Y') }} TaskU. All rights reserved.
+    <div>
+        &copy; {{ date('Y') }} TaskU. All rights reserved.
+    </div>
 </div>

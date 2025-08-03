@@ -1,13 +1,17 @@
-<nav class = "nav-menu shadow">
+<nav @if($class)
+        class = "{{$class}}"
+     @else
+        class ="nav-menu shadow"
+     @endif>
     <div style="margin-right: auto;">
-        @if($linkLogo)
+        @if($logo && $linkLogo)
             <a href="{{ $linkLogo }}">
                 <img src="{{ $logo }}"alt="Task U Logo" style="height: 50px;cursor:pointer;">
             </a>
-        @else
-            <img src="{{ $logo }}"alt="Task U Logo" class="navbar-brand" style="height: 50px;">
         @endif
-
+        @if($logo && !$linkLogo)
+            <img src="{{ $logo }}"alt="Task U Logo" style="height: 50px;">
+        @endif
     </div>
     <div class="button-content">
         @foreach($items as $item)

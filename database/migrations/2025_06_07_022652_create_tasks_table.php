@@ -16,13 +16,13 @@ return new class extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->uuid('user_id'); // Foreign key to users table
-            $table->uuid('cathegory_id'); // Foreign key to cathegories table
+            $table->uuid('category_id'); // Foreign key to cathegories table
             $table->dateTimeTz('due_date')->nullable(); // Due date for the task
             $table->boolean('completed')->default(false); // Task completion status
             $table->boolean('active')->default(true); // Default is active
             // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('cathegory_id')->references('id')->on('cathegories')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             // Timestamps for created_at and updated_at
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->nullable();

@@ -11,15 +11,18 @@ class navMenu extends Component
     /**
      * Create a new component instance.
      */
+    public $class;
     public $logo;
     public $linkLogo;
     public $items;
     public function __construct(
+        $class = null,
         $logo = null,
         $linkLogo = null,
         $items = []
     )
     {
+        $this->class = $class;
         $this->logo = $logo;
         $this->linkLogo = $linkLogo;
         $this->items = $items;

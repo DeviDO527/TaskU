@@ -6,17 +6,14 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class sidebar extends Component
+class TaskForm extends Component
 {
     /**
      * Create a new component instance.
      */
-    public $logo;
-    public $linkLogo;
-    public function __construct($logo = null, $linkLogo = null)
+    public function __construct()
     {
-        $this->logo = $logo;
-        $this->linkLogo = $linkLogo;
+        //
     }
 
     /**
@@ -24,6 +21,6 @@ class sidebar extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.sidebar');
+        return view('components.task-form');
     }
 }

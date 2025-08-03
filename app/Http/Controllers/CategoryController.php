@@ -18,9 +18,14 @@ class CategoryController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(category $category)
     {
-        
+        $category = category::create([
+            'name'=>$category,
+            'created_at' => now(),
+            'updated_at' => now(),
+            'active' => true
+        ]);
     }
 
     /**

@@ -42,6 +42,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
     ];
 
+    protected $primaryKey = 'id';
+
     /**
      * Get the attributes that should be cast.
      *
@@ -59,8 +61,13 @@ class User extends Authenticatable implements MustVerifyEmail
             'updated_at' => 'datetime',
             'active' => 'boolean',
         ];
+
     }
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'user_id', 'id');
+    }
     public function sendEmailVerificationNotification(){
         $this->notify(new \App\Notifications\CustomVerifyEmail());
     }
